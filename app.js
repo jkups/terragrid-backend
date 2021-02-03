@@ -82,6 +82,31 @@ app.get('/journeys', checkAuth(), async (req, res) => {
   }
 })
 
+app.post('/journeys', checkAuth(), async (req, res) => {
+  try{
+
+  }catch(e){
+    
+  }
+})
+
+app.get('/journeys/vehicle/:id', checkAuth(), async (req, res) => {
+  try{
+    const journeys = await Journey.find({vehicle: req.params.id}).populate('driver').select('-__v')
+    res.json(journeys)
+  }catch(e){
+    console.log(e);
+  }
+})
+
+app.get('/journeys/drivers/:id', checkAuth(), async (req, res) => {
+  try{
+
+  }catch(e){
+
+  }
+})
+
 // =========================
 app.get('/drivers', checkAuth(), async (req, res) => {
   try{
