@@ -44,16 +44,11 @@ const checkAuth = () => {
   })
 }
 
-const isAuthorized = () => {
-
-}
-
 app.post('/login', async (req, res) => {
   try{
-    console.log(req.body);
     const { email, password } = req.body;
     const user = await User.findOne({ email })
-    console.log(user);
+
     if(user && bcrypt.compareSync(password, user.password)){
       const token = jwt.sign({
         _id: user._id,
@@ -77,7 +72,7 @@ app.post('/login', async (req, res) => {
 
 //=======================
 
-app.get('/journeys', checkAuth(), isAuthorized, async (req, res) => {
+app.get('/journeys', checkAuth(), async (req, res) => {
   try{
     const journey = await Journey.find().populate('vehicle').populate('driver')
 
@@ -87,8 +82,33 @@ app.get('/journeys', checkAuth(), isAuthorized, async (req, res) => {
   }
 })
 
+app.post('/journeys', checkAuth(), async (req, res) => {
+  try{
+
+  }catch(e){
+    
+  }
+})
+
+app.get('/journeys/vehicle/:id', checkAuth(), async (req, res) => {
+  try{
+    const journeys = await Journey.find({vehicle: req.params.id}).populate('driver').select('-__v')
+    res.json(journeys)
+  }catch(e){
+    console.log(e);
+  }
+})
+
+app.get('/journeys/drivers/:id', checkAuth(), async (req, res) => {
+  try{
+
+  }catch(e){
+
+  }
+})
+
 // =========================
-app.get('/drivers', checkAuth(), isAuthorized, async (req, res) => {
+app.get('/drivers', checkAuth(), async (req, res) => {
   try{
     const drivers = await User.find({userType: 'driver'}).select('-__v')
     res.json(drivers)
@@ -98,7 +118,7 @@ app.get('/drivers', checkAuth(), isAuthorized, async (req, res) => {
   }
 })
 
-app.post('/drivers', checkAuth(), isAuthorized, async (req, res) => {
+app.post('/drivers', checkAuth(), async (req, res) => {
   // console.log(req.body);
   try{
     const driver = {...req.body, userType: 'driver', username: req.body.email}
@@ -110,7 +130,7 @@ app.post('/drivers', checkAuth(), isAuthorized, async (req, res) => {
   }
 })
 
-app.get('/drivers/:id', checkAuth(), isAuthorized, async (req, res) => {
+app.get('/drivers/:id', checkAuth(), async (req, res) => {
   try{
     const driver = await User.findOne({_id: req.params.id}).select('-_id -__v')
     res.json(driver)
@@ -120,7 +140,7 @@ app.get('/drivers/:id', checkAuth(), isAuthorized, async (req, res) => {
   }
 })
 
-app.put('/drivers/:id', checkAuth(), isAuthorized, async (req, res) => {
+app.put('/drivers/:id', checkAuth(), async (req, res) => {
   try{
     await User.findByIdAndUpdate(req.params.id, req.body)
     res.json({success: true})
@@ -131,7 +151,7 @@ app.put('/drivers/:id', checkAuth(), isAuthorized, async (req, res) => {
 })
 
 // ==============================
-app.get('/vehicles', checkAuth(), isAuthorized, async (req, res) => {
+app.get('/vehicles', checkAuth(), async (req, res) => {
   try{
     const vehicles = await Vehicle.find().select('-__v')
     res.json(vehicles)
@@ -141,7 +161,7 @@ app.get('/vehicles', checkAuth(), isAuthorized, async (req, res) => {
   }
 })
 
-app.post('/vehicles', checkAuth(), isAuthorized, async (req, res) => {
+app.post('/vehicles', checkAuth(), async (req, res) => {
   try{
     const [{ latitude, longitude }] = await geocoder.geocode(req.body.homeAddress)
 
@@ -159,7 +179,7 @@ app.post('/vehicles', checkAuth(), isAuthorized, async (req, res) => {
   }
 })
 
-app.get('/vehicles/:id', checkAuth(), isAuthorized, async (req, res) => {
+app.get('/vehicles/:id', checkAuth(), async (req, res) => {
   try{
     const vehicle = await Vehicle.findOne({_id: req.params.id}).select('-_id -__v')
     res.json(vehicle)
@@ -169,7 +189,7 @@ app.get('/vehicles/:id', checkAuth(), isAuthorized, async (req, res) => {
   }
 })
 
-app.put('/vehicles/:id', checkAuth(), isAuthorized, async (req, res) => {
+app.put('/vehicles/:id', checkAuth(), async (req, res) => {
   try{
     await Vehicle.findByIdAndUpdate(req.params.id, req.body)
     res.json({success: true})

@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
   licenseNumber: String,
   licenseExpiry: Date,
   address: String,
+  status: String
 })
 
 module.exports = mongoose.model('User', UserSchema)

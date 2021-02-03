@@ -12,7 +12,7 @@ const JourneySchema = new mongoose.Schema({
     lat: Number,
     lng: Number
   },
-  description: {type: String, required: true},
+  instruction: {type: String, required: true},
   status: String,
   vehicle: {
     type: mongoose.Schema.Types.ObjectId,

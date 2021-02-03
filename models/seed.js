@@ -37,7 +37,8 @@ db.once('open', async () => {
       licenseType: 'Driver License',
       licenseNumber: 'A2394774LN',
       licenseExpiry: '2023/02/31',
-      address: '34 Yuruga Avenue, Melbourne'
+      address: '34 Yuruga Avenue, Melbourne',
+      status: 'assigned'
     },
     {
       firstName: 'Jacob',
@@ -51,7 +52,8 @@ db.once('open', async () => {
       licenseType: 'Driver License',
       licenseNumber: 'A2394584LN',
       licenseExpiry: '2022/06/15',
-      address: '34 Yuruga Avenue, Melbourne'
+      address: '34 Yuruga Avenue, Melbourne',
+      status: 'assigned'
     },
     {
       firstName: 'Andria',
@@ -65,7 +67,8 @@ db.once('open', async () => {
       licenseType: 'Driver License',
       licenseNumber: 'A8956234LN',
       licenseExpiry: '2020/02/6',
-      address: '34 Yuruga Avenue, Melbourne'
+      address: '34 Yuruga Avenue, Melbourne',
+      status: 'unassigned'
     },
     {
       firstName: 'Melinda',
@@ -158,7 +161,7 @@ db.once('open', async () => {
         lat: -37.926897,
         lng: 144.6345
       },
-      description: 'Pick up goods from Point Cook to deliver at La Trobe.',
+      instruction: 'Pick up goods from Point Cook to deliver at La Trobe.',
       status: 'scheduled',
       vehicle: vehicles[0].id,
       driver: users[1].id
@@ -174,7 +177,7 @@ db.once('open', async () => {
         lat: -37.903660,
         lng: 144.65969
       },
-      description: 'Pick up goods from Saltwater to deliver at Synnot Werribee',
+      instruction: 'Pick up goods from Saltwater to deliver at Synnot Werribee',
       status: 'scheduled',
       vehicle: vehicles[1].id,
       driver: users[2].id

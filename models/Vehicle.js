@@ -16,7 +16,7 @@ const VehicleSchema = new mongoose.Schema({
   },
   locationAddress: String,
   atHome: {type: Boolean, default: true},
-  status: {type: String, default: 'active'},
+  status: {type: String, default: 'inactive'},
   stats: {
     accidents: Number,
     repairs: Number,
