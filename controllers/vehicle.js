@@ -1,4 +1,4 @@
-const Vehicles = require('../models/Vehicles')
+const Vehicle = require('../models/Vehicle')
 
 module.exports = {
   async getVehicles(req, res){
@@ -27,7 +27,7 @@ module.exports = {
       res.json({success: false})
     }
   },
-  async getVehicleById(req, res) => {
+  async getVehicleById(req, res){
     try{
       const vehicle = await Vehicle.findOne({_id: req.params.id}).select('-_id -__v')
       res.json(vehicle)

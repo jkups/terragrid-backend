@@ -3,10 +3,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app =  express();
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const jwtAuthenticate = require('express-jwt')
 
+const jwtAuthenticate = require('express-jwt')
 const auth = require('./controllers/auth')
 const journey = require('./controllers/journey')
 const vehicle = require('./controllers/vehicle')
@@ -32,10 +30,9 @@ geocoder.geocode('16 Staghorn Terrace, Point Cook')
 })
 
 //JWT and authentication
-const SERVER_SECRET_KEY = 'yourSecretKeyHereCHICKEN'
 const checkAuth = () => {
   return jwtAuthenticate({
-    secret: SERVER_SECRET_KEY,
+    secret: process.env.SERVER_SECRET,
     algorithms: ['HS256']
   })
 }
@@ -57,7 +54,7 @@ app.get('/drivers/:id', checkAuth(), driver.getDriverById)
 app.put('/drivers/:id', checkAuth(), driver.updateDriver)
 
 //vehicle routes
-app.get('/vehicles', checkAuth(), vehicles.getVehicles)
+app.get('/vehicles', checkAuth(), vehicle.getVehicles)
 app.post('/vehicles', checkAuth(), vehicle.saveVehicle)
 app.get('/vehicles/:id', checkAuth(), vehicle.getVehicleById)
 app.put('/vehicles/:id', checkAuth(), vehicle.updateVehicle)

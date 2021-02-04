@@ -25,7 +25,7 @@ module.exports = {
       console.log(e);
     }
   },
-  async getJourneyByDriver(req, res) => {
+  async getJourneyByDriver(req, res){
     try{
 
     }catch(e){

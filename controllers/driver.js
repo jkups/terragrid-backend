@@ -29,7 +29,7 @@ module.exports = {
       res.json({success: false})
     }
   },
-  async updateDriver(req, res}{
+  async updateDriver(req, res){
     try{
       await User.findByIdAndUpdate(req.params.id, req.body)
       res.json({success: true})
