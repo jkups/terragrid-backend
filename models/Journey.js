@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const JourneySchema = new mongoose.Schema({
   createdAt: {type: String, default: Date.now},
   origin: {type: String, required: true},
+  startDate: Date,
+  endDate: Date,
   originGeoCode: {
     lat: Number,
     lng: Number
@@ -13,7 +15,7 @@ const JourneySchema = new mongoose.Schema({
     lng: Number
   },
   instruction: {type: String, required: true},
-  status: String,
+  status: {type:String, default:'pending'},
   vehicle: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Vehicle'

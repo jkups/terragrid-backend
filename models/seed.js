@@ -96,10 +96,12 @@ db.once('open', async () => {
       code: 'A32',
       plateNumber: 'VL34ML',
       homeAddress: 'Staghorn Terrace, Point Cook',
+      locationAddress: 'Staghorn Terrace, Point Cook',
       currentLocation: {
         lat: -37.90601,
         lng: 144.7467814
       },
+      status: 'active',
       stats: {
         accidents: 0,
         repairs: 5,
@@ -114,10 +116,12 @@ db.once('open', async () => {
       code: 'B54',
       plateNumber: 'B897HJ',
       homeAddress: 'Staghorn Terrace, Point Cook',
+      locationAddress: 'Staghorn Terrace, Point Cook',
       currentLocation: {
         lat: -37.90601,
         lng: 144.7467814
       },
+      status: 'active',
       stats: {
         accidents: 0,
         repairs: 0,
@@ -132,6 +136,7 @@ db.once('open', async () => {
       code: 'B76',
       plateNumber: 'H89UY',
       homeAddress: 'Staghorn Terrace, Point Cook',
+      locationAddress: 'Staghorn Terrace, Point Cook',
       currentLocation: {
         lat: -37.90601,
         lng: 144.7467814
@@ -153,6 +158,8 @@ db.once('open', async () => {
   journeys = await Journey.create([
     {
       origin: 'Staghorn Terrace, Point Cook Victoria',
+      startDate: new Date(),
+      endDate: new Date(),
       originGeoCode: {
         lat: -37.90601,
         lng: 144.7467814,
@@ -169,6 +176,8 @@ db.once('open', async () => {
     },
     {
       origin: 'Saltwater Kirra Place Point Cook Victoria',
+      startDate: new Date(),
+      endDate: new Date(),
       originGeoCode: {
         lat: -37.9117457,
         lng: 144.7699707,

@@ -24,37 +24,23 @@ app.use(express.urlencoded({ extended: true }))
 //io Connection
 io.on('connection', socket => {
   console.log('New coord found');
-  let emittedCoords;
+
   socket.on('coords', async (coords, journeyId) => {
-    console.log(journeyId);
-    emittedCoords = coords
     if(journeyId){
       const currJourney = await journey.getJourneyById(journeyId)
-      console.log(currJourney);
+
+      const emittedCoords = coords.slice()
+
       for(coord of coords){
         if(coord.distanceToNextPoint)
-        delete coord.distanceToNextPoint
+          delete coord.distanceToNextPoint
 
         currJourney.trackingGeoCode.push(coord)
       }
       currJourney.save()
+      io.emit('coords', emittedCoords)
     }
-    io.emit('coords', emittedCoords)
   })
-
-})
-
-
-//geo coder
-const nodeGeocoder = require('node-geocoder')
-const geoCoderOptions = {
-  provider: 'openstreetmap',
-}
-
-const geocoder = nodeGeocoder(geoCoderOptions)
-geocoder.geocode('16 Staghorn Terrace, Point Cook')
-.then(res => {
-  console.log(res);
 })
 
 //JWT and authentication
@@ -73,6 +59,8 @@ app.get('/journeys', checkAuth(), journey.getJourneys)
 app.post('/journeys', checkAuth(), journey.saveJourney)
 app.get('/journeys/vehicle/:id', checkAuth(), journey.getJourneyByVehicle)
 app.get('/journeys/driver/:id', checkAuth(), journey.getJourneyByDriver)
+app.put('/journeys/:id', checkAuth(), journey.updateJourney)
+
 
 
 //driver routes

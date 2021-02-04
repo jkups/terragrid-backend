@@ -1,6 +1,7 @@
 const Journey = require('../models/Journey')
-const User = require('../models/User')
-const Vehicle = require('../models/Vehicle')
+const nodeGeocoder = require('node-geocoder')
+const geoCoderOptions = {provider: 'openstreetmap'}
+const geocoder = nodeGeocoder(geoCoderOptions)
 
 module.exports = {
   async getJourneys(req, res){
@@ -12,10 +13,32 @@ module.exports = {
       console.log(e);
     }
   },
+  async updateJourney(req, res){
+    console.log(req.body);
+  },
   async saveJourney(req, res){
     try{
-    }catch(e){
+      console.log(req.body);
+      const journey = req.body
+      console.log(req.body)
+      const originGeoCode = await geocoder.geocode(req.body.origin)
+      const destinationGeoCode = await geocoder.geocode(req.body.destination)
+      console.log(originGeoCode);
+      journey.originGeoCode = {
+        lat: originGeoCode[0].latitude,
+        lng: originGeoCode[0].longitude
+      }
 
+      journey.destinationGeoCode = {
+        lat: destinationGeoCode[0].latitude,
+        lng: destinationGeoCode[0].longitude
+      }
+
+      await Journey.create(journey)
+      res.json({success: true})
+    }catch(e){
+      console.log(e);
+      res.json({success: false})
     }
   },
   async getJourneyByVehicle(req, res){
