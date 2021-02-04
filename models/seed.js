@@ -5,7 +5,7 @@ const User = require('./User');
 const Vehicle = require('./Vehicle');
 const Journey = require('./Journey');
 
-mongoose.connect(process.env.DB_URL,
+mongoose.connect('mongodb://localhost/terra',
 { useNewUrlParser: true, useUnifiedTopology: true})
 
 const db = mongoose.connection

@@ -34,5 +34,13 @@ module.exports = {
     }catch(e){
       console.log(e);
     }
+  },
+  async getJourneyById(id){
+    try{
+      journey = await Journey.findById(id)
+      return journey
+    }catch(e){
+      console.log(e);
+    }
   }
 }

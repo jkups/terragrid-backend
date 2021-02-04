@@ -1,8 +1,11 @@
 require('dotenv').config()
+
 const mongoose = require('mongoose');
 const express = require('express');
 const app =  express();
+const http = require('http').createServer(app)
 const cors = require('cors');
+const io = require('socket.io')(http, {cors:{origin:'*'}})
 
 const jwtAuthenticate = require('express-jwt')
 const auth = require('./controllers/auth')
@@ -16,6 +19,31 @@ mongoose.connect(process.env.DB_URL,
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+
+//io Connection
+io.on('connection', socket => {
+  console.log('New coord found');
+  let emittedCoords;
+  socket.on('coords', async (coords, journeyId) => {
+    console.log(journeyId);
+    emittedCoords = coords
+    if(journeyId){
+      const currJourney = await journey.getJourneyById(journeyId)
+      console.log(currJourney);
+      for(coord of coords){
+        if(coord.distanceToNextPoint)
+        delete coord.distanceToNextPoint
+
+        currJourney.trackingGeoCode.push(coord)
+      }
+      currJourney.save()
+    }
+    io.emit('coords', emittedCoords)
+  })
+
+})
+
 
 //geo coder
 const nodeGeocoder = require('node-geocoder')
@@ -70,6 +98,6 @@ app.use( (err, req, res, next) => {
   }
 })
 
-app.listen(process.env.PORT, process.env.IP, () => {
+http.listen(process.env.PORT, process.env.IP, () => {
   console.log('Now serving your page!');
 })
