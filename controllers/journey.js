@@ -1,4 +1,6 @@
 const Journey = require('../models/Journey')
+const User = require('../models/User')
+const Vehicle = require('../models/Vehicle')
 
 module.exports = {
   async getJourneys(req, res){
@@ -12,7 +14,6 @@ module.exports = {
   },
   async saveJourney(req, res){
     try{
-
     }catch(e){
 
     }
@@ -26,10 +27,12 @@ module.exports = {
     }
   },
   async getJourneyByDriver(req, res){
+    // console.log(req.params);
     try{
-
+      const journey = await Journey.find({driver: req.params.id}).populate('driver').populate('vehicle').select('-__v')
+      res.json(journey)
     }catch(e){
-
+      console.log(e);
     }
   }
 }

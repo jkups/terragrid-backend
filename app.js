@@ -44,7 +44,7 @@ app.post('/login', auth.login)
 app.get('/journeys', checkAuth(), journey.getJourneys)
 app.post('/journeys', checkAuth(), journey.saveJourney)
 app.get('/journeys/vehicle/:id', checkAuth(), journey.getJourneyByVehicle)
-app.get('/journeys/drivers/:id', checkAuth(), journey.getJourneyByDriver)
+app.get('/journeys/driver/:id', checkAuth(), journey.getJourneyByDriver)
 
 
 //driver routes
