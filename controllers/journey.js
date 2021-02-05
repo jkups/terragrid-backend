@@ -14,7 +14,13 @@ module.exports = {
     }
   },
   async updateJourney(req, res){
-    console.log(req.body);
+    try{
+      await Journey.findByIdAndUpdate(req.params.id, req.body)
+      res.json({success: true})
+    }catch(e){
+      console.log(e);
+      res.json({success: false})
+    }
   },
   async saveJourney(req, res){
     try{
