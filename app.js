@@ -5,7 +5,7 @@ const express = require('express');
 const app =  express();
 const http = require('http').createServer(app)
 const cors = require('cors');
-const io = require('socket.io')(http, {cors:{origin:'*'}})
+const io = require('socket.io')(http, {cors:{origin:'https://jkups.github.io'}})
 
 const jwtAuthenticate = require('express-jwt')
 const auth = require('./controllers/auth')
@@ -70,7 +70,7 @@ app.put('/drivers/:id', checkAuth(), driver.updateDriver)
 
 
 //vehicle routes
-app.get('/vehicles', checkAuth(), vehicle.getVehicles)
+app.get('/vehicles', checkAuth(), vehicsdle.getVehicles)
 app.post('/vehicles', checkAuth(), vehicle.saveVehicle)
 app.get('/vehicles/:id', checkAuth(), vehicle.getVehicleById)
 app.put('/vehicles/:id', checkAuth(), vehicle.updateVehicle)
