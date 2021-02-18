@@ -42,7 +42,7 @@ Follow these steps to use the app.
 
 * Demonstration:
 
-<img src='public/terragrid_capture.gif' />
+<img src='https://drive.google.com/uc?export=view&id=1rh2UH6u6fX78TXP5tvTcoGdNSuan2VWM' />
 
 ### Known Issues and Bugs
 * You can start a journey multiple times. Should limit this to once and update DB when journey ends. Multiple starts is however allowed in simulation mode but can impact DB response time.
