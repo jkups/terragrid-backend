@@ -70,7 +70,7 @@ app.put('/drivers/:id', checkAuth(), driver.updateDriver)
 
 
 //vehicle routes
-app.get('/vehicles', checkAuth(), vehicsdle.getVehicles)
+app.get('/vehicles', checkAuth(), vehicle.getVehicles)
 app.post('/vehicles', checkAuth(), vehicle.saveVehicle)
 app.get('/vehicles/:id', checkAuth(), vehicle.getVehicleById)
 app.put('/vehicles/:id', checkAuth(), vehicle.updateVehicle)
