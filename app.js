@@ -5,7 +5,7 @@ const express = require('express');
 const app =  express();
 const http = require('http').createServer(app)
 const cors = require('cors');
-const io = require('socket.io')(http, {cors:{origin:'https://jkups.github.io'}})
+const io = require('socket.io')(http, {cors:{origin:'*'}})
 
 const jwtAuthenticate = require('express-jwt')
 const auth = require('./controllers/auth')
@@ -38,7 +38,7 @@ io.on('connection', socket => {
         currJourney.trackingGeoCode.push(coord)
       }
       currJourney.save()
-      io.emit('coords', emittedCoords)
+      io.emit('coords', emittedCoords, journeyId)
     }
   })
 })
@@ -62,12 +62,12 @@ app.get('/journeys/driver/:id', checkAuth(), journey.getJourneyByDriver)
 app.put('/journeys/:id', checkAuth(), journey.updateJourney)
 
 
-
 //driver routes
 app.get('/drivers', checkAuth(), driver.getDrivers)
 app.post('/drivers', checkAuth(), driver.saveDriver)
 app.get('/drivers/:id', checkAuth(), driver.getDriverById)
 app.put('/drivers/:id', checkAuth(), driver.updateDriver)
+
 
 //vehicle routes
 app.get('/vehicles', checkAuth(), vehicle.getVehicles)
@@ -85,6 +85,7 @@ app.use( (err, req, res, next) => {
     res.sendStatus(404)
   }
 })
+
 
 http.listen(process.env.PORT, process.env.IP, () => {
   console.log('Now serving your page!');

@@ -24,12 +24,10 @@ module.exports = {
   },
   async saveJourney(req, res){
     try{
-      console.log(req.body);
       const journey = req.body
-      console.log(req.body)
       const originGeoCode = await geocoder.geocode(req.body.origin)
       const destinationGeoCode = await geocoder.geocode(req.body.destination)
-      console.log(originGeoCode);
+      
       journey.originGeoCode = {
         lat: originGeoCode[0].latitude,
         lng: originGeoCode[0].longitude
